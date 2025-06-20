@@ -75,8 +75,21 @@ class LoginController extends Controller
 
     public function findUsername()
     {
-        $login     = request()->input('username');
-        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $login = request()->input('username');
+
+        // Check if it's an email
+        if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
+            $fieldType = 'email';
+        }
+        // Check if it's a phone number (basic format check)
+        elseif (preg_match('/^\+?[0-9]{7,15}$/', $login)) {
+            $fieldType = 'mobile';
+        }
+        else {
+            // Invalid format (not email or phone)
+            $fieldType = 'username'; // fallback to avoid breaking login logic
+        }
+
         request()->merge([$fieldType => $login]);
         return $fieldType;
     }
