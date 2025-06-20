@@ -192,7 +192,7 @@ class NotificationController extends Controller
         $config       = gs('mail_config');
         $receiverName = explode('@', $request->email)[0];
         $subject      = strtoupper($config->name) . ' Configuration Success';
-        $message      = 'Your email notification setting is configured successfully for ' . gs('site_name');
+        $message      = 'This is a test message to check mail connectivity. Please do not reply ' . gs('site_name');
 
         if (gs('en')) {
             $user = [
