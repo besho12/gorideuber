@@ -54,11 +54,11 @@ class RegisterController extends Controller
         $validate     = Validator::make($data, [
             'firstname' => 'required',
             'lastname'  => 'required',
-            'email'     => 'required|string|email|unique:users',
+            'email'     => 'nullable|string|email|unique:users',
             'password'  => ['required', 'confirmed', $passwordValidation],
             'agree'     => $agree,
             'country_code' => 'required|in:' . $countryCodes,
-            'mobile'       => ['required', 'regex:/^([0-9]*)$/', Rule::unique('users')->where('dial_code', $data['mobile_code'])],
+            'mobile'       => ['required', 'regex:/^([0-9]*)$/', Rule::unique('users')],
         ], [
             'firstname.required' => 'The first name field is required',
             'lastname.required'  => 'The last name field is required'
