@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rule;
+
 
 class RegisterController extends Controller
 {
@@ -46,12 +48,16 @@ class RegisterController extends Controller
             $agree = 'required';
         }
 
+        $countryData  = (array)json_decode(file_get_contents(resource_path('views/partials/country.json')));
+        $countryCodes = implode(',', array_keys($countryData));
+
         $validate     = Validator::make($data, [
             'firstname' => 'required',
             'lastname'  => 'required',
             'email'     => 'required|string|email|unique:users',
             'password'  => ['required', 'confirmed', $passwordValidation],
-            'agree'     => $agree
+            'agree'     => $agree,
+            'country_code' => 'required|in:' . $countryCodes,
         ], [
             'firstname.required' => 'The first name field is required',
             'lastname.required'  => 'The last name field is required'
