@@ -49,7 +49,7 @@ class RegisterController extends Controller
         $validate     = Validator::make($data, [
             'firstname' => 'required',
             'lastname'  => 'required',
-            'email'     => 'nullable|string|email|unique:drivers',
+            'email'     => 'required|string|email|unique:drivers',
             'password'  => ['required', 'confirmed', $passwordValidation],
             'agree'     => $agree,
         ], [
