@@ -58,6 +58,7 @@ class RegisterController extends Controller
             'password'  => ['required', 'confirmed', $passwordValidation],
             'agree'     => $agree,
             'country_code' => 'required|in:' . $countryCodes,
+            'mobile'       => ['required', 'regex:/^([0-9]*)$/', Rule::unique('users')->where('dial_code', $request->mobile_code)],
         ], [
             'firstname.required' => 'The first name field is required',
             'lastname.required'  => 'The last name field is required'
