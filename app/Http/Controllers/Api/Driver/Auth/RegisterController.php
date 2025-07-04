@@ -50,6 +50,7 @@ class RegisterController extends Controller
             'firstname' => 'required',
             'lastname'  => 'required',
             'email'     => 'nullable|string|email|unique:drivers',
+            'mobile'    => 'required',
             'password'  => ['required', 'confirmed', $passwordValidation],
             'agree'     => $agree,
         ], [
@@ -97,11 +98,13 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
+        $data['email'] = ' ';
         $driver            = new Driver();
         $driver->firstname = $data['firstname'];
         $driver->lastname  = $data['lastname'];
         $driver->email     = strtolower($data['email']);
         $driver->password  = Hash::make($data['password']);
+        $driver->mobile    = $data['mobile'];
         $driver->ev        = gs('ev') ? Status::UNVERIFIED : Status::VERIFIED;
         $driver->sv        = gs('sv') ? Status::UNVERIFIED : Status::VERIFIED;
         $driver->ts        = Status::DISABLE;

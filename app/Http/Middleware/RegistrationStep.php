@@ -17,16 +17,16 @@ class RegistrationStep
     public function handle(Request $request, Closure $next)
     {
         $user = auth()->user();
-        if (!$user->profile_complete) {
-            if ($request->is('api/*')) {
-                $notify[] = 'Please complete your profile to go next';
-                return apiResponse("profile_incomplete", "error", $notify, [
-                    'user' => $user
-                ]);
-            } else {
-                return to_route('user.data');
-            }
-        }
+        // if (!$user->profile_complete) {
+        //     if ($request->is('api/*')) {
+        //         $notify[] = 'Please complete your profile to go next';
+        //         return apiResponse("profile_incomplete", "error", $notify, [
+        //             'user' => $user
+        //         ]);
+        //     } else {
+        //         return to_route('user.data');
+        //     }
+        // }
         return $next($request);
     }
 }
