@@ -113,6 +113,8 @@ class RegisterController extends Controller
         $user->email     = strtolower($data['email']);
         $user->password  = Hash::make($data['password']);
         $user->mobile    = $data['mobile'];
+        $user->dial_code = $data['dial_code'];
+        $user->country_code  = $data['country_code'];
         $user->ref_by    = $referUser ? $referUser->id : 0;
         $user->ev        = gs('ev') ? Status::UNVERIFIED : Status::VERIFIED;
         $user->sv        = gs('sv') ? Status::UNVERIFIED : Status::VERIFIED;
